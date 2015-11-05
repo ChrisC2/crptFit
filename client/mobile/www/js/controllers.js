@@ -401,7 +401,7 @@ angular.module('crptFit.controllers', ['ionic'])
   };
 }])
 
-.controller('MessagesCtrl', ['$scope','$state', '$ionicPopup', 'Message', 'Social', function($scope,$state, $ionicPopup, Message, Social) {
+.controller('MessagesCtrl', ['$scope','$state', '$location', '$ionicPopup', 'Message', 'Social', function($scope, $state, $location, $ionicPopup, Message, Social) {
 //NOTE Refactor me
   var self = this;
   self.sendTo = {
@@ -442,8 +442,9 @@ angular.module('crptFit.controllers', ['ionic'])
   self.sendMessage = function(chatId, val){
     console.log(chatId, val)
     self.send = Message.sendMessage(chatId, val);
-     self.sendTo.val = null;
-     self.returnMessage = Message.messageToPage();
+    Message.messageUpdate(val)
+    self.sendTo.val = null;
+    self.returnMessage = Message.messageToPage();
   };
   self.capChatId = function(chatId){
     Message.getRoom(chatId);
@@ -454,15 +455,19 @@ angular.module('crptFit.controllers', ['ionic'])
     console.log(id, 'this is what im passing')
     console.log('LOOKING TO CONNECTION')
     socket.emit('connecting', id)
-     socket.on('message-append', function(id, message){
+    socket.on('message-append', function(id, message){
       console.log(id, message)
-        self.sendMessage(id, message)
-      })
-  }
+      self.sendMessage(id, message)
+    })
+    $scope.$on('$ionicView.leave', function(event){
+      console.log('the dc event actually fired', id)
+      socket.emit('disconnect', id)
+    })
+  };
   self.liveUpdate = function(chatId, message){
     var socket = io();
       socket.emit('chatroom id', chatId, message);
-    }
+    };
   $scope.showPopup = function() {
   $scope.data = {};
    $scope.myPopup = $ionicPopup.show({
@@ -588,6 +593,7 @@ angular.module('crptFit.controllers', ['ionic'])
           template: '<p class="loading-text">Finding Nearby Users...</p><ion-spinner icon="ripple"></ion-spinner>',
         });
 
+
   self.getLocation = function () {
     navigator.geolocation.getCurrentPosition(function(position) {
     self.lat = position.coords.latitude;
@@ -614,6 +620,7 @@ angular.module('crptFit.controllers', ['ionic'])
     };
     self.cards.unshift(angular.extend({}, newCard));
     };
+
 
   self.addCards = function() {
     $http.get('/auth/nearbyusers').then(function(users) {
@@ -666,5 +673,6 @@ angular.module('crptFit.controllers', ['ionic'])
     self.removeCard = function($index) {
       self.cards.splice($index, 1);
     };
+  self.find = Finder.getUsers();
 
 }])

@@ -83,12 +83,12 @@ app.get('/auth/facebook/callback', function (req, res, next) {
       if (err) { return next(err); }
       req.logIn(user, function(err) {
         if (err) { return next(err); }
-        res.redirect( '/#/tab/homepage' );
+        res.redirect( '/#/dash' );
       });
     })(req, res, next);
 });
 
-app.get('/tab/homepage', ensureAuthenticated, function (req,res) {
+app.get('/dash', ensureAuthenticated, function (req,res) {
   console.log('THIS USER IS LOGGED IN', req.user)
   var user = req.user
   if(user) {
@@ -179,6 +179,18 @@ app.get('/auth/nearbyusers', function (req, res) {
                   return user
                 }
               }))
+<<<<<<< HEAD
+=======
+            })).then(function(result) {
+              console.log(' 6 THIS IS USER IN LAST BLOCK', result)
+              if(result === undefined) {
+                console.log('{nearbyUsers: None}')
+                res.json({nearbyUsers: 'None'})
+                return
+              } else {
+                console.log(' 7 THESE ARE USERS WHO HAVENT BEEN SWIPED YET AND ARE RES>JSON', result)
+                res.json(result);
+>>>>>>> 90038c6bd843bf1a3700fc6635b576d3651d5bd0
               }
             }))
           })).then(function(result) {
@@ -195,10 +207,13 @@ app.get('/auth/nearbyusers', function (req, res) {
           })
         })
       })
+<<<<<<< HEAD
     })
   })
 })
         //if no users are found nearby then user[0] will be undefined
+=======
+>>>>>>> 90038c6bd843bf1a3700fc6635b576d3651d5bd0
 
 //On Right Swipe Check if Swiped User has Also Swiped Right on the User
 app.get('/auth/matchcheck/:id', function (req, res) {
@@ -855,55 +870,63 @@ server.listen(port, function(){
 
 io.on('connection', function (socket){
   console.log('youser connected breh')
-  var userObj = socket.client.request.user;
-  var chatroomId;
-  var newMessage;
-  console.log(userObj, '<------ userobj, expect undef', 'will be null ------->', chatroomId)
-  if (userObj !== undefined){
-    // emit user's facebook name
-    socket.emit('user name', {username: userObj.get('username')});
-  }
+  // var userObj = socket.client.request.user;
+  // var chatroomId;
+  // var newMessage;
+  // console.log(userObj, '<------ userobj, expect undef', 'will be null ------->', chatroomId)
+  // if (userObj !== undefined){
+  //   // emit user's facebook name
+  //   socket.emit('user name', {username: userObj.get('username')});
+  // }
 
-  socket.on('connecting', function(id){
-    console.log('i heard it coming from on high, the song that ends the world', id)
-    socket.join(id);
+  socket.on('connecting', function(room){
+    console.log(room)
+    socket.join(room);
   })
   // new chat room
-  socket.on('chatroom id', function(id, message){
-    console.log(id, message)
-    socket.join(id)
-    io.sockets.in(id).emit('message-append', id, message);
-    db.model('Chat').fetchById(id)
-  .then(function (id){
-    return Promise.all(id.relations.message.models.map(function(message){
-      return message;
-    }))
+  socket.on('chatroom id', function(room, message){
+    console.log(room, message)
+    socket.join(room);
+    io.sockets.to(room).emit('message-append', room, message);
   })
-  .then(function (messages){
-    messages.forEach(function (message){
-      var messageObj = message.toJSON();
-      db.model('User').fetchById(message.get('user_id'))
-      .then(function (user){
-        // console.log("LET ME SEE WHAT THIS IS", user);
-        messageObj.name = user.get('username');
-        socket.emit('new chat', messageObj);
-        });
-      });
+  socket.on('disconnect', function(room){
+    socket.leave(room, function(err){
+      console.log(err)
     });
-  });
+    console.log('leaving chat: should not double if dc', room);
+  })
+})
+//     db.model('Chat').fetchById(id)
+//   .then(function (id){
+//     return Promise.all(id.relations.message.models.map(function(message){
+//       return message;
+//     }))
+//   })
+//   .then(function (messages){
+//     messages.forEach(function (message){
+//       var messageObj = message.toJSON();
+//       db.model('User').fetchById(message.get('user_id'))
+//       .then(function (user){
+//         // console.log("LET ME SEE WHAT THIS IS", user);
+//         messageObj.name = user.get('username');
+//         socket.emit('new chat', messageObj);
+//         });
+//       });
+//     });
+//   });
 
-  socket.on('new chat', function(chat){
-    if(userObj){
-      var messageObj;
-      db.model('Message').newMessage(text, chatroomId, userObj)
-      .then( function(message){
-        messageObj = message.toJSON();
-        return db.model('User').fetchById(messageObj.user_id);
-      })
-      .then(function(user){
-        messageObj.name = user.get('username');
-        io.to(chatroomId).emit('new chat', messageObj);
-      })
-    }
-  });
-});
+//   socket.on('new chat', function(chat){
+//     if(userObj){
+//       var messageObj;
+//       db.model('Message').newMessage(text, chatroomId, userObj)
+//       .then( function(message){
+//         messageObj = message.toJSON();
+//         return db.model('User').fetchById(messageObj.user_id);
+//       })
+//       .then(function(user){
+//         messageObj.name = user.get('username');
+//         io.to(chatroomId).emit('new chat', messageObj);
+//       })
+//     }
+//   });
+// });
