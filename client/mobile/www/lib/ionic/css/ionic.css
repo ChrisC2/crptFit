@@ -41,7 +41,7 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /*color: #25B3F4;*/
+  color: #25B3F4;
 }
 
 .ion-alert:before {
