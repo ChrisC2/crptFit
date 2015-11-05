@@ -179,18 +179,6 @@ app.get('/auth/nearbyusers', function (req, res) {
                   return user
                 }
               }))
-<<<<<<< HEAD
-=======
-            })).then(function(result) {
-              console.log(' 6 THIS IS USER IN LAST BLOCK', result)
-              if(result === undefined) {
-                console.log('{nearbyUsers: None}')
-                res.json({nearbyUsers: 'None'})
-                return
-              } else {
-                console.log(' 7 THESE ARE USERS WHO HAVENT BEEN SWIPED YET AND ARE RES>JSON', result)
-                res.json(result);
->>>>>>> 90038c6bd843bf1a3700fc6635b576d3651d5bd0
               }
             }))
           })).then(function(result) {
@@ -207,13 +195,9 @@ app.get('/auth/nearbyusers', function (req, res) {
           })
         })
       })
-<<<<<<< HEAD
     })
   })
 })
-        //if no users are found nearby then user[0] will be undefined
-=======
->>>>>>> 90038c6bd843bf1a3700fc6635b576d3651d5bd0
 
 //On Right Swipe Check if Swiped User has Also Swiped Right on the User
 app.get('/auth/matchcheck/:id', function (req, res) {
