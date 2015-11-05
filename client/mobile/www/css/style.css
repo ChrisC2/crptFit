@@ -15,6 +15,8 @@ img{
   border-radius: 100%;
   display: block;
   margin: 0 auto;
+  height: 150px;
+  width: 150px;
   border: 1px solid black;
 }
 .profile-name{
@@ -95,7 +97,7 @@ p.task{
   display: block;
   padding-left: 0;
 }
-body { text-align: center; padding: 40px; background: #F5F5F5; }
+body { text-align: center; padding: 40px; background: #1A161D; }
 .container { width: 500px; text-align: center; margin: auto;}
 .copyright { margin-top: 50px; font-size: 12px; text-transform: uppercase; }
 .copyright a { text-decoration: none; padding: 5px;background: #c0392b; color: #FFFFFF; }
@@ -164,18 +166,21 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ccfffff
 .td-cards {
   max-width: 300px;
   margin: 0 auto;
+  height: 90%;
   position: relative;
 }
 
 .td-card {
   position: absolute;
   width: 100%;
+  height: 90%;
   display: block;
 }
 
 .td-card img {
   max-width: 100%;
   max-height: 100%;
+  word-wrap: break-word;
 }
 
 .td-card__overlay {
@@ -187,6 +192,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ccfffff
   padding: 20px;
   margin-top: -30px;
   background: rgba(255,255,255,0.8);
+  word-wrap: break-word;
 }
 
 .td-card__overlay--like {
@@ -201,9 +207,56 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ccfffff
 .spinner svg {
   width: 50px;
   height: 50px;
-  stroke: #CCFF33;
-  fill: #CCFF33;
+  stroke: #25B3F4 ;
+  fill: #25B3F4 ;
 }
 .loading-text {
-  color: #CCFF33;
+  color: white ;
+}
+
+.profile {
+  padding: 15px;
+  height: auto;
+  width: auto;
+  font-size: 10px;
+  text-align: left;
+
+}
+
+.tinder-img {
+  border-radius: 100%;
+  border-style: solid;
+  width: 250px;
+  height: 250px;
+  border-width: 8px;
+  border-color: #25B3F4
+}
+.name {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  font-weight: bold;
+}
+.wrap {
+  padding-bottom: 10px;
+  display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+}
+
+.custom-icon-left {
+  font-size: 64px;
+  color : tomato;
+  padding-left: 20px;
+  padding-right: 20px
+}
+.custom-icon-right {
+  font-size: 64px;
+  color : green;
+  padding-left: 20px;
+  padding-right: 20px
 }
