@@ -18,12 +18,20 @@
 
     <div class="recent-activity">
       <div ng-repeat="update in ctrl.feed" >
-        <a class="item item-avatar taskBox">
-          <h3>{{ctrl.username}}</h3>
-          <p>completed the task "<span class="completedTask">{{update.description}}</span>"!</p>
-        </a>
+        <div class="list card">
+      <div class="item item-divider">Challenge Completed</div>
+      <div class="item item-body">
+        <!-- <a class="item item-avatar task"> -->
+      <div class="wrap">
+      <div class-"name-wrap">
+      <h3>{{update.username}}</h3>
+
       </div>
-    </div>
+      <div class="item completedTask">{{update.description}} !</div>
+      </div>
+        <!-- </a> -->
+      </div>
+      </div>
 
   </ion-content>
 </ion-view>

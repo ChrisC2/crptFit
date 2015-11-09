@@ -455,7 +455,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ccfffff
   border-color: #25B3F4
 }
 .wrap {
-  padding-top: 3px;
+  padding-top: 20px;
   padding-bottom: 10px;
   display: -webkit-flex;
    display: flex;
@@ -468,13 +468,13 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ccfffff
 }
 .custom-icon-left {
   font-size: 64px;
-  color: tomato;
+  color: tomato !important;
   padding-left: 20px;
   padding-right: 20px
 }
 .custom-icon-right {
   font-size: 64px;
-  color: green;
+  color: green !important;
   padding-left: 20px;
   padding-right: 20px
 }
@@ -563,4 +563,22 @@ padding-left: 10px
 .edit {
   background-color: #25B3F4;
   color: white;
+}
+.center {
+  text-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  align-content: center;
+}
+.border {
+  border-width: 3px;
+  border-color: #25B3F4;
+}
+.td-name {
+  padding-top: 20px;
+  padding-bottom:20px;
+  color: black;
+  font-size: 25px !important;
+  font-weight: 1
 }

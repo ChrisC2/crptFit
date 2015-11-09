@@ -11,6 +11,7 @@ angular.module('crptFit.controllers', ['ionic'])
   viewedUser.username;
   viewedUser.pic;
   viewedUser.feed;
+  viewedUser.profile;
 
   // Variable that controls the disabled state of the 'add friend' button
   viewedUser.isFriend = false;
@@ -33,11 +34,12 @@ angular.module('crptFit.controllers', ['ionic'])
   };
 
   // Utility function for setting a viewed user's properties for rendering
-  var setProfileInfo = function(picUrl, username, friends, activityFeed){
+  var setProfileInfo = function(picUrl, username, friends, activityFeed, profile){
     viewedUser.friendCount = friends;
     viewedUser.username = username;
     viewedUser.feed = activityFeed;
     viewedUser.pic = picUrl;
+    viewedUser.profile = profile;
   };
 
   // Return a user's completed tasks
@@ -60,8 +62,9 @@ angular.module('crptFit.controllers', ['ionic'])
     var tasks = setTasks(response.data.tasks);
     var userName = response.data.username;
     var pic = response.data.profile_pic;
+    var profile = response.data.profile;
 
-    setProfileInfo(pic, userName, friends, tasks);
+    setProfileInfo(pic, userName, friends, tasks, profile);
   });
 }])
 
@@ -190,7 +193,7 @@ angular.module('crptFit.controllers', ['ionic'])
 
   benchProgress.uId = null;
   benchProgress.getUid();
-  //Controls Highchart options 
+  //Controls Highchart options
   $scope.chartConfig = {
     options: {
       chart: {
@@ -678,7 +681,7 @@ angular.module('crptFit.controllers', ['ionic'])
 
   self.getMessagesById = function(){
     self.sendHelp = Message.clearCap();
-  }; 
+  };
   //Creates a new chatroom, closes friend popup, and forces a page reload so the new chat is immediately ready to use
   self.makeChat = function(userId){
     $scope.myPopup.close();
