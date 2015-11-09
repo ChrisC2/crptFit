@@ -151,7 +151,7 @@ angular.module('crptFit', ['ionic', 'highcharts-ng', 'ionic.contrib.ui.tinderCar
       views: {
         'app-nav': {
           templateUrl: 'templates/profile-view.html',
-          controller: 'ProfileCtlr as ctrl'  
+          controller: 'ViewProfileCtrl as ctrl'  
         }
       }
   })
